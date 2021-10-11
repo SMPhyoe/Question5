@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+ name: assessmentingress
+ annotations:
+   kubernetes.io/ingress.class: kong
+spec:
+ rules:
+ - http:
+     paths:
+     - path: /v1/tasks/task
+       pathType: Prefix
+       backend:
+         service:
+           name: producerrest
+           port:
+             number: 80
+     - path: /v1/hello
+       pathType: Prefix
+       backend:
+         service:
+           name: q4yml
+           port:
+             number: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: assessmentingress
+ annotations:
+   konghq.com/plugins: five-per-min
