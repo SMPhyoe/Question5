@@ -23,9 +23,12 @@ spec:
            port:
              number: 80
 ---
-apiVersion: v1
-kind: Service
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
 metadata:
- name: assessmentingress
- annotations:
-   konghq.com/plugins: five-per-min
+ name: correlation-id-assessment
+config:
+ header_name: TX-Request-ID
+ generator: uuid#counter
+ echo_downstream: true
+plugin: correlation-id
